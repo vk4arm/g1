@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2v8g12qweqwe"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_abcde"]
+[ext_resource type="Texture2D" uid="uid://c6f9j4k5l6m7n" path="res://assets/images/warehouse.png" id="2_fghij"]
+[ext_resource type="AudioStream" uid="uid://d8h1p2o3l4k5m" path="res://assets/audio/rap.mp3" id="3_klmno"]
+[ext_resource type="AudioStream" uid="uid://e9j2k3l4m5n6o" path="res://assets/audio/classical.mp3" id="4_pqrst"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_abcde")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fghij")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/bold_font_size = 40
+bbcode_enabled = true
+text = "[center]Loading...[/center]"
+fit_content = true
+
+[node name="AudioRap" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_klmno")
+volume_db = -80.0
+
+[node name="AudioClassical" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_pqrst")
+volume_db = -80.0
