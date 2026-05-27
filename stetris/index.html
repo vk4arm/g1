@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Strip Tetris - Cyberpunk Neon Edition</title>
+  <meta name="description" content="A gorgeous, premium, web-based Strip Tetris game. Choose your character, clear lines, listen to procedural synthwave beats, and reveal beautiful art.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+  <!-- Background Animated Cyberpunk Grid -->
+  <div class="cyber-grid-bg"></div>
+  <div class="neon-ambient-glow"></div>
+
+  <!-- Audio Unlock Button (Splash Screen overlay) -->
+  <div id="splash-screen" class="splash-container">
+    <div class="splash-card">
+      <h1 class="game-logo">STRIP<br><span class="neon-glow-text">TETRIS</span></h1>
+      <p class="tagline">Synthwave • Aesthetics • Erotica</p>
+      
+      <div class="splash-warning">
+        <span class="warning-badge">18+</span>
+        <p>This game contains mature artistic illustrations, erotic themes, and procedural synthesized audio. Please confirm you are of legal age to proceed.</p>
+      </div>
+
+      <button id="btn-enter-game" class="btn-neon-action">
+        <span class="btn-text">ENTER CYBER GRID</span>
+        <span class="btn-glow"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main App Container -->
+  <div id="app-container" class="hidden">
+    
+    <!-- Navigation / Header -->
+    <header class="app-header">
+      <div class="header-logo" id="logo-click">
+        STRIP<span class="neon-color-text">TETRIS</span>
+      </div>
+      <nav class="header-nav">
+        <button id="nav-btn-game" class="nav-link active">GAME</button>
+        <button id="nav-btn-gallery" class="nav-link">GALLERY</button>
+        <button id="nav-btn-settings" class="nav-link-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.47,5.34 14.86,5.08L14.47,2.42C14.43,2.18 14.22,2 13.97,2H9.97C9.72,2 9.51,2.18 9.47,2.42L9.08,5.08C8.47,5.34 7.9,5.66 7.38,6.05L4.89,5.05C4.67,4.96 4.4,5.05 4.27,5.27L2.27,8.73C2.15,8.95 2.2,9.22 2.39,9.37L4.5,11C4.46,11.34 4.44,11.67 4.44,12C4.44,12.33 4.46,12.65 4.5,12.97L2.39,14.63C2.2,14.78 2.15,15.05 2.27,15.27L4.27,18.73C4.4,18.95 4.67,19.04 4.89,18.95L7.38,17.95C7.9,18.34 8.47,18.66 9.08,18.92L9.47,21.58C9.51,21.82 9.72,22 9.97,22H13.97C14.22,22 14.43,21.82 14.47,21.58L14.86,18.92C15.47,18.66 16.04,18.34 16.56,17.95L19.05,18.95C19.27,19.04 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/></svg>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Content Sections -->
+    <main class="app-body">
+
+      <!-- SECTION 1: CHARACTER SELECT -->
+      <section id="section-character-select" class="content-section">
+        <h2 class="section-title">CHOOSE YOUR PARTNER</h2>
+        <p class="section-subtitle">Clear lines to progress her strip stages. Each character features full dynamic voice/sound effects and aesthetic layouts.</p>
+        
+        <div class="characters-grid">
+          <!-- Akira Card -->
+          <div class="char-card" data-char-id="akira">
+            <div class="char-card-image-wrap">
+              <img src="assets/characters/akira_stage_0.png" alt="Akira" class="char-card-img">
+              <div class="char-card-gradient"></div>
+            </div>
+            <div class="char-card-info">
+              <span class="char-badge hacker">HACKER</span>
+              <h3 class="char-name">Akira</h3>
+              <p class="char-title">Cyberpunk Netrunner</p>
+              <p class="char-bio">A rebellious hacker who wagered her gear in a high-stakes grid match. Playful, sharp, and confident.</p>
+              <div class="char-stats">
+                <span class="stat-item">Diff: <span class="accent-text">Normal</span></span>
+                <span class="stat-item">Theme: <span class="accent-text">Synthwave</span></span>
+              </div>
+              <button class="btn-select-char" data-char-id="akira">SELECT CHIP</button>
+            </div>
+          </div>
+
+          <!-- Elara Card -->
+          <div class="char-card" data-char-id="elara">
+            <div class="char-card-image-wrap">
+              <img src="assets/characters/elara_stage_0.png" alt="Elara" class="char-card-img">
+              <div class="char-card-gradient"></div>
+            </div>
+            <div class="char-card-info">
+              <span class="char-badge mage">SORCERESS</span>
+              <h3 class="char-name">Elara</h3>
+              <p class="char-title">Elven Princess</p>
+              <p class="char-bio">An ancient elven wizard testing her magic focus in our dimension. Elegant, mystical, and curious.</p>
+              <div class="char-stats">
+                <span class="stat-item">Diff: <span class="accent-text">Hard</span></span>
+                <span class="stat-item">Theme: <span class="accent-text">Ethereal</span></span>
+              </div>
+              <button class="btn-select-char" data-char-id="elara">SELECT CHIP</button>
+            </div>
+          </div>
+
+          <!-- Carmilla Card -->
+          <div class="char-card" data-char-id="carmilla">
+            <div class="char-card-image-wrap">
+              <img src="assets/characters/carmilla_stage_0.png" alt="Carmilla" class="char-card-img">
+              <div class="char-card-gradient"></div>
+            </div>
+            <div class="char-card-info">
+              <span class="char-badge vampire">VAMPIRE</span>
+              <h3 class="char-name">Carmilla</h3>
+              <p class="char-title">Gothic Queen</p>
+              <p class="char-bio">A noble vampire queen who finds human block matching games amusing. Seductive, dark, and teasing.</p>
+              <div class="char-stats">
+                <span class="stat-item">Diff: <span class="accent-text">Easy</span></span>
+                <span class="stat-item">Theme: <span class="accent-text">Dark-Synth</span></span>
+              </div>
+              <button class="btn-select-char" data-char-id="carmilla">SELECT CHIP</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: THE MAIN GAME BOARD -->
+      <section id="section-gameplay" class="content-section hidden">
+        
+        <!-- Compact HUD for Mobile Screens -->
+        <div class="mobile-hud-container">
+          <div class="mobile-hud-item hold-box-mini glass-panel">
+            <span class="hud-mini-label">HOLD</span>
+            <canvas id="hold-canvas-mini" width="50" height="50"></canvas>
+          </div>
+          <div class="mobile-hud-stats glass-panel">
+            <div class="hud-mini-row-1">
+              <span>SC: <span id="hud-score-mini" class="accent-text text-accent">0</span></span>
+              <span>LV: <span id="hud-level-mini" class="accent-text text-accent">1</span></span>
+              <span>LN: <span id="hud-lines-mini" class="accent-text text-accent">0</span></span>
+            </div>
+            <div class="progress-track mini">
+              <div class="progress-bar" id="strip-progress-bar-mini" style="width: 0%"></div>
+            </div>
+            <div class="hud-mini-buttons">
+              <button id="btn-game-pause-mini" class="btn-hud-mini">PAUSE</button>
+              <button id="btn-game-select-mini" class="btn-hud-mini exit">EXIT</button>
+            </div>
+          </div>
+          <div class="mobile-hud-item next-box-mini glass-panel">
+            <span class="hud-mini-label">NEXT</span>
+            <canvas id="next-canvas-mini" width="50" height="50"></canvas>
+          </div>
+        </div>
+
+        <div class="gameplay-layout">
+          
+          <!-- Column 1: Left Dashboard (Score & Hold) -->
+          <div class="side-panel left-panel">
+            <!-- Active Character Badge -->
+            <div class="active-character-card glass-panel">
+              <div class="char-avatar-circle" id="game-char-avatar"></div>
+              <div class="char-mini-text">
+                <div class="char-mini-name" id="game-char-name">Akira</div>
+                <div class="char-mini-title" id="game-char-title">Cyberpunk Netrunner</div>
+              </div>
+            </div>
+
+            <!-- Hold Box -->
+            <div class="hold-container glass-panel glow-card-active">
+              <div class="panel-label">HOLD</div>
+              <canvas id="hold-canvas" width="100" height="100"></canvas>
+            </div>
+
+            <!-- Stats Box -->
+            <div class="stats-container glass-panel">
+              <div class="stat-box">
+                <span class="stat-label">SCORE</span>
+                <span class="stat-value neon-glow-text" id="hud-score">0</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">LINES</span>
+                <span class="stat-value" id="hud-lines">0</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">LEVEL</span>
+                <span class="stat-value" id="hud-level">1</span>
+              </div>
+            </div>
+
+            <!-- Game Actions -->
+            <div class="action-buttons">
+              <button id="btn-game-pause" class="btn-game-control">PAUSE (P)</button>
+              <button id="btn-game-select" class="btn-game-control exit">EXIT GRID</button>
+            </div>
+          </div>
+
+          <!-- Column 2: Center (Tetris Grid Canvas) -->
+          <div class="grid-panel-container">
+            <div class="board-frame glow-card-active" id="board-frame-glow">
+              <canvas id="tetris-canvas" width="300" height="600"></canvas>
+              
+              <!-- Pause Overlay -->
+              <div id="pause-overlay" class="grid-overlay hidden">
+                <div class="overlay-box">
+                  <h2 class="neon-glow-text">GRID SUSPENDED</h2>
+                  <p>Audio synth and game loop are paused.</p>
+                  <button id="btn-resume-overlay" class="btn-neon-action small">RESUME</button>
+                </div>
+              </div>
+              
+              <!-- Game Over Overlay -->
+              <div id="gameover-overlay" class="grid-overlay hidden">
+                <div class="overlay-box">
+                  <h2 class="text-danger neon-glow-text">GRID OFFLINE</h2>
+                  <p>You crashed. Strip progress was saved.</p>
+                  <div class="gameover-stats">
+                    <div>SCORE: <span class="accent-text" id="go-score">0</span></div>
+                    <div>LINES: <span class="accent-text" id="go-lines">0</span></div>
+                    <div>STAGE REACHED: <span class="accent-text" id="go-stage">0</span></div>
+                  </div>
+                  <div class="overlay-buttons">
+                    <button id="btn-restart" class="btn-neon-action small">REBOOT GAME</button>
+                    <button id="btn-go-select" class="btn-neon-action small exit">EXIT GRID</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: Right Panel (Strip Target Portrait & Next Queue) -->
+          <div class="side-panel right-panel">
+            
+            <!-- Character Strip Visualizer -->
+            <div class="strip-container glass-panel">
+              <div class="panel-label">PARTNER STATE</div>
+              
+              <!-- Stage Header Indicator -->
+              <div class="stage-indicator">
+                <span class="stage-badge" id="strip-stage-badge">STAGE 0</span>
+                <span class="stage-name" id="strip-stage-name">Clothed</span>
+              </div>
+              
+              <!-- Main Target Image Box -->
+              <div class="strip-portrait-box">
+                <img id="strip-portrait-img" src="assets/characters/akira_stage_0.png" alt="Strip Character" class="portrait-img">
+                <!-- Censor filter overlay (if toggled) -->
+                <div id="censor-overlay" class="censor-layer hidden"></div>
+                <!-- Line sweep loader animation -->
+                <div class="scanner-sweep"></div>
+              </div>
+
+              <!-- Strip Progress Bar -->
+              <div class="strip-progress-bar-wrap">
+                <div class="strip-progress-bar-label">Next strip stage: <span id="strip-progress-lines">0/10 lines</span></div>
+                <div class="progress-track">
+                  <div class="progress-bar" id="strip-progress-bar" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Next Queue Box -->
+            <div class="next-container glass-panel">
+              <div class="panel-label">NEXT QUEUE</div>
+              <canvas id="next-canvas" width="100" height="240"></canvas>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Touch Controls for Mobile Screens -->
+        <div class="mobile-controls-container">
+          <div class="touch-row">
+            <button id="touch-hold" class="touch-btn key-hold">HOLD</button>
+            <button id="touch-rotate-ccw" class="touch-btn key-ccw">↺</button>
+            <button id="touch-rotate-cw" class="touch-btn key-cw">↻</button>
+          </div>
+          <div class="touch-row layout-arrows">
+            <div class="arrow-pad">
+              <button id="touch-left" class="touch-btn arrow-left">←</button>
+              <button id="touch-soft" class="touch-btn arrow-down">↓</button>
+              <button id="touch-right" class="touch-btn arrow-right">→</button>
+            </div>
+            <button id="touch-hard" class="touch-btn hard-drop">HARD DROP</button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- SECTION 3: UNLOCKED GALLERY -->
+      <section id="section-gallery" class="content-section hidden">
+        <h2 class="section-title">UNLOCKED DATABASE</h2>
+        <p class="section-subtitle">Browse images of the stages you have successfully unlocked during gameplay.</p>
+        
+        <div class="gallery-selection-tabs">
+          <button class="gallery-tab active" data-char-id="akira">AKIRA</button>
+          <button class="gallery-tab" data-char-id="elara">ELARA</button>
+          <button class="gallery-tab" data-char-id="carmilla">CARMILLA</button>
+        </div>
+
+        <div class="gallery-character-overview glass-panel">
+          <div class="gallery-char-left">
+            <h3 id="gallery-char-name">Akira</h3>
+            <p id="gallery-char-title">Cyberpunk Netrunner</p>
+            <p id="gallery-char-bio" class="gallery-bio">A rebellious hacker who wagered her gear in a high-stakes grid match. Playful, sharp, and confident.</p>
+            <div class="gallery-stats">
+              <div>Difficulty: <span id="gallery-char-diff" class="accent-text">Normal</span></div>
+              <div>Visual Style: <span id="gallery-char-style" class="accent-text">Neon Cyberpunk</span></div>
+            </div>
+          </div>
+          
+          <div class="gallery-stages-grid">
+            <!-- Stage 0 Card -->
+            <div class="gallery-stage-card locked" id="gal-stage-0" data-stage="0">
+              <div class="img-container">
+                <img src="assets/characters/akira_stage_0.png" alt="Stage 0">
+                <div class="lock-overlay"><svg viewBox="0 0 24 24" width="36" height="36"><path fill="currentColor" d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/></svg></div>
+              </div>
+              <div class="stage-label">Stage 0 (Spawn)</div>
+            </div>
+            
+            <!-- Stage 1 Card -->
+            <div class="gallery-stage-card locked" id="gal-stage-1" data-stage="1">
+              <div class="img-container">
+                <img src="assets/characters/akira_stage_1.png" alt="Stage 1">
+                <div class="lock-overlay"><svg viewBox="0 0 24 24" width="36" height="36"><path fill="currentColor" d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/></svg></div>
+              </div>
+              <div class="stage-label">Stage 1 (10 Lines)</div>
+            </div>
+
+            <!-- Stage 2 Card -->
+            <div class="gallery-stage-card locked" id="gal-stage-2" data-stage="2">
+              <div class="img-container">
+                <img src="assets/characters/akira_stage_2.png" alt="Stage 2">
+                <div class="lock-overlay"><svg viewBox="0 0 24 24" width="36" height="36"><path fill="currentColor" d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/></svg></div>
+              </div>
+              <div class="stage-label">Stage 2 (20 Lines)</div>
+            </div>
+
+            <!-- Stage 3 Card -->
+            <div class="gallery-stage-card locked" id="gal-stage-3" data-stage="3">
+              <div class="img-container">
+                <img src="assets/characters/akira_stage_3.png" alt="Stage 3">
+                <div class="lock-overlay"><svg viewBox="0 0 24 24" width="36" height="36"><path fill="currentColor" d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/></svg></div>
+              </div>
+              <div class="stage-label">Stage 3 (30 Lines)</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Settings Modal (Popup) -->
+  <div id="settings-modal" class="modal hidden">
+    <div class="modal-card glass-panel glow-card-active">
+      <div class="modal-header">
+        <h3>GRID SETTINGS</h3>
+        <button id="btn-close-settings" class="modal-close-btn">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        
+        <!-- Censor Toggle -->
+        <div class="setting-item flex-between">
+          <div>
+            <div class="setting-label">ART CENSORSHIP</div>
+            <div class="setting-desc">Apply retro pixelation filter to strip stages</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="setting-censor" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- Master volume -->
+        <div class="setting-item">
+          <div class="flex-between">
+            <span class="setting-label">MASTER GAIN</span>
+            <span class="slider-val" id="val-master-gain">80%</span>
+          </div>
+          <input type="range" id="slider-master" min="0" max="1" step="0.05" value="0.8" class="range-slider">
+        </div>
+
+        <!-- Music enable + volume -->
+        <div class="setting-item">
+          <div class="flex-between">
+            <span class="setting-label">SYNTH BEATS (MUSIC)</span>
+            <label class="toggle-switch small">
+              <input type="checkbox" id="setting-music" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <input type="range" id="slider-music" min="0" max="1" step="0.05" value="0.5" class="range-slider">
+        </div>
+
+        <!-- Sound FX enable + volume -->
+        <div class="setting-item">
+          <div class="flex-between">
+            <span class="setting-label">GRID FEEDBACK (SFX)</span>
+            <label class="toggle-switch small">
+              <input type="checkbox" id="setting-sfx" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <input type="range" id="slider-sfx" min="0" max="1" step="0.05" value="0.6" class="range-slider">
+        </div>
+        
+        <!-- Controls Reference -->
+        <div class="control-references">
+          <h4>GRID INTERACTION UNIT</h4>
+          <div class="ref-grid">
+            <div><span class="key-cap">←</span> <span class="key-cap">→</span> Move Piece</div>
+            <div><span class="key-cap">↑</span> Rotate Clockwise</div>
+            <div><span class="key-cap">Z</span> Rotate Counter-CW</div>
+            <div><span class="key-cap">↓</span> Soft Drop</div>
+            <div><span class="key-cap">SPACE</span> Hard Drop</div>
+            <div><span class="key-cap">C</span> / <span class="key-cap">SHIFT</span> Hold Piece</div>
+            <div><span class="key-cap">P</span> Pause / Resume</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage Transition Overlay (Pause Gameplay & Announce achievements) -->
+  <div id="transition-overlay" class="stage-transition-overlay hidden">
+    <div class="transition-message-card">
+      <div class="cyber-scanline"></div>
+      <h1 class="glow-title" id="trans-title">STAGE CLEAR!</h1>
+      <p class="glow-subtitle" id="trans-subtitle">Akira has removed her jacket.</p>
+      <div class="glitch-line"></div>
+      <button id="btn-transition-continue" class="btn-neon-action small">RESUME DECRYPTION</button>
+    </div>
+  </div>
+
+  <!-- Fullscreen Lightbox for Gallery View -->
+  <div id="lightbox" class="lightbox-overlay hidden">
+    <button class="lightbox-close">&times;</button>
+    <img id="lightbox-img" src="" alt="Full View">
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/characters.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/tetris.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
